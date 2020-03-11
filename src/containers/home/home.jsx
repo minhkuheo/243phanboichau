@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import Searching from './Searching';
+import Results from './results';
 
 const Home = () => {
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = event => setSearchValue(event.target.value);
+
   return (
     <div>
-      <h1>THis is Home</h1>
+      <Searching searchValue={searchValue} onChangeSearchValue={handleSearchChange} />
+      <Results searchValue={searchValue}/>
     </div>
   );
 };

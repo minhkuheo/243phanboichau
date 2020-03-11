@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
-import { Store, Timeline } from "@material-ui/icons";
+import { Store, Timeline, ShoppingCart } from "@material-ui/icons";
+import * as ROUTES from '../../../assets/constants/routers';
 
 export default () => {
   const [value, setValue] = useState(0);
@@ -11,8 +13,9 @@ export default () => {
 
   return (
     <BottomNavigation value={value} onChange={handleOnChange} showLabels>
-      <BottomNavigationAction label="Hàng hóa" icon={<Store />} />
-      <BottomNavigationAction label="Analysis" icon={<Timeline />} />
+      <BottomNavigationAction component={Link} to={ROUTES.HOME} label="Hàng hóa" icon={<Store />} />
+      <BottomNavigationAction component={Link} to={ROUTES.SHOPPING_CART} label="Tính tiền" icon={<ShoppingCart />} />
+      <BottomNavigationAction component={Link} to={ROUTES.ANALYSIS} label="Thống kê" icon={<Timeline />} />
     </BottomNavigation>
   );
 };
