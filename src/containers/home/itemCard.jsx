@@ -16,11 +16,6 @@ const useStyles = makeStyles({
     maxWidth: 300,
     marginBottom: 20
   },
-  rootActive: {
-    backgroundColor: "green",
-    maxWidth: 300,
-    marginBottom: 20
-  },
   media: {
     height: 140
   }
@@ -30,17 +25,16 @@ export default ({ item, selected }) => {
   const classes = useStyles();
 
   const { id, name, imgUrl, price } = item;
-  console.log("[selected] ", selected);
 
   const numberOfPrices = price.length;
   const isFullPrice = numberOfPrices === 2;
   return (
-    <Card className={selected ? classes.rootActive : classes.root}>
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={imgUrl} title={name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {name}
+            {name} {selected ? "(đã chọn)" : ""}
           </Typography>
           <Grid container>
             <Grid item xs={isFullPrice ? 6 : 12}>

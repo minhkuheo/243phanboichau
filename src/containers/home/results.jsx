@@ -30,7 +30,7 @@ export default ({ searchValue }) => {
   };
 
   if (loading) return <Loading />;
-  console.log("[contextSelectedItemIdList] ", contextSelectedItemIdList);
+
   return (
     <div>
       <p>{searchValue}</p>
