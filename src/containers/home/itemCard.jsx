@@ -1,51 +1,63 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Grid,
   Card,
   CardHeader,
-  CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  ButtonGroup, Button,
-  Typography
+  ButtonGroup,
+  Button
 } from "@material-ui/core";
+import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 300,
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "50%"
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "50%"
+    }
   },
   media: {
     height: 140
   }
-});
+}));
 
-export default ({ item, selected, handleOnSelect }) => {
+export default ({ item, handleOnSelect }) => {
   const classes = useStyles();
+  const { contextSelectedItemList } = useContext(ShoppingCartContext);
 
   const { id, name, imgUrl, price } = item;
   return (
     <Card className={classes.root}>
-      <CardHeader title={name}/>
-        <CardMedia className={classes.media} image={imgUrl} title={name} />
-        <CardContent>
-          <ButtonGroup aria-label="outlined price button group">
-            {
-              price.map(priceItem => (
-                <Button 
-                  key={priceItem.unit} 
-                  variant="contained" 
-                  color="primary" 
-                  onClick={() => handleOnSelect(item, selected, priceItem.price, priceItem.unit)}
-                >
-                  {priceItem.price} / {priceItem.unit}
-                </Button>
-              ))
-            }
-          </ButtonGroup>
-        </CardContent>
+      <CardHeader title={name} />
+      <CardMedia className={classes.media} image={imgUrl} title={name} />
+      <CardContent>
+        <ButtonGroup aria-label="outlined price button group">
+          {price.map(priceItem => {
+            const isSelected = contextSelectedItemList[id]
+              ? priceItem.unit === contextSelectedItemList[id]
+              : false;
+            return (
+              <Button
+                key={priceItem.unit}
+                variant={isSelected ? "contained" : ""}
+                color={isSelected ? "primary" : ""}
+                onClick={() =>
+                  handleOnSelect(item, priceItem.price, priceItem.unit)
+                }
+              >
+                {priceItem.price} / {priceItem.unit}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
+      </CardContent>
     </Card>
   );
 };

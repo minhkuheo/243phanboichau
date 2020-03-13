@@ -11,11 +11,11 @@ import * as ROUTES from "./assets/constants/routers";
 function App() {
   return (
     <Container maxWidth="sm">
-      <header>
-        <Header />
-      </header>
-      <main>
-        <ShoppingCartContextProvider>
+      <ShoppingCartContextProvider>
+        <header>
+          <Header />
+        </header>
+        <main>
           <Switch>
             <Route exact path={ROUTES.HOME}>
               <Home />
@@ -27,8 +27,8 @@ function App() {
               <Analysis />
             </Route>
           </Switch>
-        </ShoppingCartContextProvider>
-      </main>
+        </main>
+      </ShoppingCartContextProvider>
     </Container>
   );
 }

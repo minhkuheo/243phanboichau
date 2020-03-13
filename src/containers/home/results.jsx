@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Box } from "@material-ui/core";
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 import ItemCard from "./itemCard";
 import { ITEMS } from "../../assets/constants/mockupData";
@@ -6,7 +7,7 @@ import Loading from "../../components/loading";
 
 export default ({ searchValue }) => {
   const {
-    contextSelectedItemIdList,
+    contextSelectedItemList,
     addToContextShoppingCartList,
     removeFromContextShoppingCartList
   } = useContext(ShoppingCartContext);
@@ -21,49 +22,39 @@ export default ({ searchValue }) => {
     fetchData();
   }, []);
 
-  // const handleOnClickItem = (item, isSelected) => {
-  //   if (isSelected) {
-  //     removeFromContextShoppingCartList(item);
-  //   } else {
-  //     addToContextShoppingCartList(item);
-  //   }
-  // };
-
-  const handleOnSelectItem = (newItem, newIsSelected, newPrice, newUnit) => {
-    if (newIsSelected) {
+  const handleOnSelectItem = (newItem, newPrice, newUnit) => {
+    // Because of contextSelectedItemList has the format:
+    //    {
+    //      [item.id] = [unit]
+    //    }
+    if (contextSelectedItemList[newItem.id] === newUnit) {
       removeFromContextShoppingCartList(newItem);
     } else {
       const newItemObj = {
-        id: newItem['id'],
-        name: newItem['name'],
+        id: newItem["id"],
+        name: newItem["name"],
         unit: newUnit,
+        amount: 1,
         price: newPrice,
-        subTotal: newPrice,
-      }
+        subTotal: newPrice
+      };
 
       addToContextShoppingCartList(newItemObj);
     }
   };
 
   if (loading) return <Loading />;
-
   return (
-    <div>
-      <p>{searchValue}</p>
+    <Box display="flex" flexDirection="row" flexWrap="wrap">
       {itemList.map(item => {
-        const isSelected = contextSelectedItemIdList.includes(item.id);
         return (
-          <ItemCard key={item.id} item={item} selected={isSelected} handleOnSelect={handleOnSelectItem}/>
+          <ItemCard
+            key={item.id}
+            item={item}
+            handleOnSelect={handleOnSelectItem}
+          />
         );
-        // return (
-        //   <div
-        //     key={item.id}
-        //     onClick={() => handleOnClickItem(item, isSelected)}
-        //   >
-        //     <ItemCard item={item} selected={isSelected} />
-        //   </div>
-        // );
       })}
-    </div>
+    </Box>
   );
 };

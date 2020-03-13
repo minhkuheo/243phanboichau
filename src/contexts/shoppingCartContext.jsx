@@ -2,38 +2,55 @@ import React, { createContext, useState } from "react";
 
 export const ShoppingCartContext = createContext({
   contextShoppingCartList: [],
-  contextSelectedItemIdList: [],
+  contextSelectedItemList: {},
   addToContextShoppingCartList: () => {},
   removeFromContextShoppingCartList: () => {},
+  updateContextAmountItem: () => {},
   emptyContextShoppingCartList: () => {}
 });
 
 export const ShoppingCartContextProvider = props => {
   const [contextShoppingCartList, updateContextShoppingCartList] = useState([]);
-  const [contextSelectedItemIdList, updateContextSelectedItemIdList] = useState(
-    []
+  const [contextSelectedItemList, updateContextSelectedItemIdList] = useState(
+    {}
   );
 
   // LOCAL HELPER FUNCTIONS
   //
-  const addSelectedItemIdToContextList = itemId => {
-    let prevList = [...contextSelectedItemIdList];
-    prevList.push(itemId);
-    updateContextSelectedItemIdList(prevList);
+  const addSelectedItemIdToContextList = item => {
+    const prevObject = { ...contextSelectedItemList };
+    prevObject[item.id] = item.unit;
+    updateContextSelectedItemIdList(prevObject);
   };
-  const removeSelectedItemIdToContextList = itemId => {
-    const prevList = contextSelectedItemIdList.filter(id => itemId !== id);
-    updateContextSelectedItemIdList(prevList);
+  const removeSelectedItemIdToContextList = item => {
+    const prevObject = { ...contextSelectedItemList };
+    delete prevObject[item.id];
+    updateContextSelectedItemIdList(prevObject);
   };
 
   // FUNCTIONS TO CONTEXT PROVIDER
   //
   const addToContextShoppingCartList = item => {
     let prevList = [...contextShoppingCartList];
-    prevList.push(item);
+    if (contextSelectedItemList[item.id]) {
+      let index;
+      const N = contextShoppingCartList.length;
+      for (let i = 0; i < N; i++) {
+        if (contextShoppingCartList[i].id === item.id) {
+          index = i;
+          break;
+        }
+      }
+
+      prevList[index].unit = item.unit;
+      prevList[index].price = item.price;
+      prevList[index].subTotal = item.price;
+    } else {
+      prevList.push(item);
+    }
     updateContextShoppingCartList(prevList);
 
-    addSelectedItemIdToContextList(item.id);
+    addSelectedItemIdToContextList(item);
   };
   const removeFromContextShoppingCartList = item => {
     const prevList = contextShoppingCartList.filter(
@@ -41,7 +58,14 @@ export const ShoppingCartContextProvider = props => {
     );
     updateContextShoppingCartList(prevList);
 
-    removeSelectedItemIdToContextList(item.id);
+    removeSelectedItemIdToContextList(item);
+  };
+  const updateContextAmountItem = (newAmount, idx) => {
+    let prevList = [...contextShoppingCartList];
+    prevList[idx].amount = newAmount;
+    prevList[idx].subTotal =
+      newAmount * parseInt(prevList[idx].price).toString();
+    updateContextShoppingCartList(prevList);
   };
   const emptyContextShoppingCartList = () => {
     updateContextShoppingCartList([]);
@@ -52,9 +76,10 @@ export const ShoppingCartContextProvider = props => {
     <ShoppingCartContext.Provider
       value={{
         contextShoppingCartList,
-        contextSelectedItemIdList,
+        contextSelectedItemList,
         addToContextShoppingCartList,
         removeFromContextShoppingCartList,
+        updateContextAmountItem,
         emptyContextShoppingCartList
       }}
     >
