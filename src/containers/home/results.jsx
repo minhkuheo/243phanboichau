@@ -21,11 +21,27 @@ export default ({ searchValue }) => {
     fetchData();
   }, []);
 
-  const handleOnClickItem = (item, isSelected) => {
-    if (isSelected) {
-      removeFromContextShoppingCartList(item);
+  // const handleOnClickItem = (item, isSelected) => {
+  //   if (isSelected) {
+  //     removeFromContextShoppingCartList(item);
+  //   } else {
+  //     addToContextShoppingCartList(item);
+  //   }
+  // };
+
+  const handleOnSelectItem = (newItem, newIsSelected, newPrice, newUnit) => {
+    if (newIsSelected) {
+      removeFromContextShoppingCartList(newItem);
     } else {
-      addToContextShoppingCartList(item);
+      const newItemObj = {
+        id: newItem['id'],
+        name: newItem['name'],
+        unit: newUnit,
+        price: newPrice,
+        subTotal: newPrice,
+      }
+
+      addToContextShoppingCartList(newItemObj);
     }
   };
 
@@ -37,13 +53,16 @@ export default ({ searchValue }) => {
       {itemList.map(item => {
         const isSelected = contextSelectedItemIdList.includes(item.id);
         return (
-          <div
-            key={item.id}
-            onClick={() => handleOnClickItem(item, isSelected)}
-          >
-            <ItemCard item={item} selected={isSelected} />
-          </div>
+          <ItemCard key={item.id} item={item} selected={isSelected} handleOnSelect={handleOnSelectItem}/>
         );
+        // return (
+        //   <div
+        //     key={item.id}
+        //     onClick={() => handleOnClickItem(item, isSelected)}
+        //   >
+        //     <ItemCard item={item} selected={isSelected} />
+        //   </div>
+        // );
       })}
     </div>
   );

@@ -10,7 +10,8 @@ import {
   Paper,
   FormControl,
   Select,
-  MenuItem
+  MenuItem,
+  TextField
 } from "@material-ui/core";
 import { RemoveShoppingCart } from "@material-ui/icons";
 
@@ -39,19 +40,29 @@ export default () => {
                   {item.name}
                 </TableCell>
                 <TableCell align="right">
-                  <FormControl>
-                    <Select labelId="unit-select-label" id="unit-select">
+                  {/* <FormControl>
+                    <Select labelId="unit-select-label" id="unit-select" value={item.price[0].unit}>
                       {item.price.map(priceItem => (
-                        <MenuItem value={priceItem.unit}>
+                        <MenuItem key={priceItem.unit} value={priceItem.unit}>
                           {priceItem.unit}
                         </MenuItem>
                       ))}
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
+                  {item.unit}
                 </TableCell>
-                <TableCell align="right">2</TableCell>
-                <TableCell align="right">30000</TableCell>
-                <TableCell align="right">60000</TableCell>
+                <TableCell align="right">
+                  <TextField
+                    id="standard-number"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    defaultValue={1}
+                  />
+                </TableCell>
+                <TableCell align="right">{item.price}</TableCell>
+                <TableCell align="right">{item.subTotal}</TableCell>
                 <TableCell align="right">
                   <RemoveShoppingCart color="action" />
                 </TableCell>
