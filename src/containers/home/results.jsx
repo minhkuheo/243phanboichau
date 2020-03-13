@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box } from "@material-ui/core";
+import latinize from 'latinize';
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 import ItemCard from "./itemCard";
 import { ITEMS } from "../../assets/constants/mockupData";
 import Loading from "../../components/loading";
+
+function filterItems(items, searchValue) {
+  return items.filter(item => {
+    return latinize(item.name).toLowerCase().indexOf(latinize(searchValue).toLowerCase()) > -1;
+  });
+}
 
 export default ({ searchValue }) => {
   const {
@@ -44,6 +51,7 @@ export default ({ searchValue }) => {
   };
 
   if (loading) return <Loading />;
+
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap">
       {itemList.map(item => {

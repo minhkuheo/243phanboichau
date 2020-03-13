@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Searching from './Searching';
+import Searching from './searching';
 import Results from './results';
 
 const Home = () => {

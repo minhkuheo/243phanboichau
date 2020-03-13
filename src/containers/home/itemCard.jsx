@@ -17,10 +17,12 @@ const useStyles = makeStyles(theme => ({
       width: "100%"
     },
     [theme.breakpoints.up("md")]: {
-      width: "50%"
+      width: "48%",
+      marginRight: 10,
     },
     [theme.breakpoints.up("lg")]: {
-      width: "50%"
+      width: "48%",
+      marginRight: 10,
     }
   },
   media: {

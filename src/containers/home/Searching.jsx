@@ -1,10 +1,26 @@
 import React from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: {
+    marginBottom: '30px',
+  },
+});
 
 export default ({searchValue, onChangeSearchValue}) => {
+  const classes = useStyles();
+
   return (
     <form>
-      <TextField id="search-items" label="Nhập tên mặt hàng để tìm kiếm" fullWidth margin="normal" variant="filled" value={searchValue} onChange={onChangeSearchValue}/>
+      <TextField 
+        className={[classes.root, classes.label, classes.input]}
+        id="search-items" 
+        label="Nhập tên mặt hàng để tìm kiếm" 
+        fullWidth 
+        margin="normal" 
+        value={searchValue} 
+        onChange={onChangeSearchValue}
+      />
     </form>
   );
 }
