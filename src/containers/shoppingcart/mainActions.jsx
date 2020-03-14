@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { makeStyles, Button } from "@material-ui/core";
+import { Delete, Save } from '@material-ui/icons';
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 
 const useStyles = makeStyles(theme => ({
@@ -20,20 +21,21 @@ export default () => {
     <div className={classes.root}>
       <Button
         className={classes.margin}
-        size="large"
         variant="contained"
         color="secondary"
+        startIcon={<Delete />}
         onClick={() => emptyContextShoppingCartList()}
       >
-        Hủy toa
+        Hủy toa - Delete
       </Button>
       <Button
         className={classes.margin}
-        size="large"
         variant="contained"
         color="secondary"
+        startIcon={<Save />}
+        style={{ backgroundColor: 'green' }}
       >
-        Toa mới
+        Toa mới - Save and New
       </Button>
     </div>
   );

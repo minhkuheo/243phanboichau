@@ -52,17 +52,23 @@ export default ({ searchValue }) => {
 
   if (loading) return <Loading />;
 
+  const renderList = filterItems(itemList, searchValue);
+  const isItemListEmpty = !renderList[0];
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap">
-      {itemList.map(item => {
-        return (
-          <ItemCard
-            key={item.id}
-            item={item}
-            handleOnSelect={handleOnSelectItem}
-          />
-        );
-      })}
+      {
+        isItemListEmpty
+        ? <h1>Không tìm thấy mặt hàng với tên tương ứng trong danh sách</h1>
+        : renderList.map(item => {
+          return (
+            <ItemCard
+              key={item.id}
+              item={item}
+              handleOnSelect={handleOnSelectItem}
+            />
+          );
+        })
+      }
     </Box>
   );
 };

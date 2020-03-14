@@ -6,6 +6,7 @@ import Header from "./components/layout/header";
 import Home from "./containers/home/home";
 import ShoppingCart from "./containers/shoppingcart/shoppingCart";
 import Analysis from "./containers/analysis/analysis";
+import AdminPage from './containers/admin/adminIndex';
 import * as ROUTES from "./assets/constants/routers";
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
             </Route>
             <Route path={ROUTES.ANALYSIS}>
               <Analysis />
+            </Route>
+            <Route path={ROUTES.ADMIN}>
+              <AdminPage /> 
             </Route>
           </Switch>
         </main>
