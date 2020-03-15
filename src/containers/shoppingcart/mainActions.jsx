@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { makeStyles, Button } from "@material-ui/core";
-import { Delete, Save } from '@material-ui/icons';
+import { Delete, Save } from "@material-ui/icons";
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 
 const useStyles = makeStyles(theme => ({
@@ -33,9 +33,9 @@ export default () => {
         variant="contained"
         color="secondary"
         startIcon={<Save />}
-        style={{ backgroundColor: 'green' }}
+        style={{ backgroundColor: "green" }}
       >
-        Toa mới - Save and New
+        Lưu toa - Save and New
       </Button>
     </div>
   );
