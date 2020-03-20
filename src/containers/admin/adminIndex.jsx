@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   makeStyles,
-  Grid,
   Box,
   FormControl,
   FormLabel,
@@ -11,7 +10,8 @@ import {
   IconButton
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import { PhotoCamera } from "@material-ui/icons";
+import { PhotoCamera, VideocamOff } from "@material-ui/icons";
+import Camera from "../../components/camera/camera";
 // import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 
 const useStyles = makeStyles(theme => ({
@@ -38,11 +38,13 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [useCamera, setUseCamera] = useState(false);
 
   const handleDateChange = date => {
     setSelectedDate(date);
   };
+  const handleCameraOnOff = () => setUseCamera(!useCamera);
 
   return (
     <div>
@@ -59,14 +61,31 @@ export default () => {
         <Box className={classes.box}>
           <TextField id="item photo url" label="link ảnh sản phẩm" fullWidth />
           <h4>Hoặc</h4>
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-            size="small"
-          >
-            <PhotoCamera /> <span className={classes.spanUpload}>up ảnh</span>
-          </IconButton>
+          {useCamera ? (
+            <IconButton
+              color="primary"
+              aria-label="Close camera"
+              component="span"
+              size="small"
+              onClick={handleCameraOnOff}
+            >
+              <VideocamOff />{" "}
+              <span className={classes.spanUpload}>Tắt Camera</span>
+            </IconButton>
+          ) : (
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+              size="small"
+              onClick={handleCameraOnOff}
+            >
+              <PhotoCamera />{" "}
+              <span className={classes.spanUpload}>Bật Camera để chụp ảnh</span>
+            </IconButton>
+          )}
+
+          {useCamera && <Camera />}
         </Box>
 
         <div className={classes.root}>
