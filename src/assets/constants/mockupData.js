@@ -9,7 +9,10 @@ export const ITEMS = [
         price: "75000",
         currency: "VND"
       }
-    ]
+    ],
+    retailPrice: "75000",
+    retailUnit: "cọc",
+    retailCurrency: "VND"
   },
   {
     id: "2",
@@ -26,7 +29,13 @@ export const ITEMS = [
         price: "80000",
         currency: "VND"
       }
-    ]
+    ],
+    retailUnit: "vỉ",
+    retailPrice: "7000",
+    retailCurrency: "VND",
+    wholesaleUnit: "hộp",
+    wholesalePrice: "80000",
+    wholesaleCurrency: "VND"
   },
   {
     id: "3",
@@ -43,6 +52,12 @@ export const ITEMS = [
         price: "300000",
         currency: "VND"
       }
-    ]
+    ],
+    retailUnit: "tập",
+    retailPrice: "60000",
+    retailCurrency: "VND",
+    wholesaleUnit: "thùng",
+    wholesalePrice: "300000",
+    wholesaleCurrency: "VND"
   }
 ];

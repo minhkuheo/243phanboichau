@@ -3,12 +3,13 @@ import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import ImagePreview from "./imagePreview";
 
-export default () => {
+export default ({ onImageTaken }) => {
   const [dataUri, setDataUri] = useState("");
 
   function handleTakePhotoAnimationDone(dataUri) {
     console.log("takePhoto");
     setDataUri(dataUri);
+    onImageTaken(dataUri);
   }
 
   return (

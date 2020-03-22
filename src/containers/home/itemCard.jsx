@@ -18,11 +18,11 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.up("md")]: {
       width: "48%",
-      marginRight: 10,
+      marginRight: 10
     },
     [theme.breakpoints.up("lg")]: {
       width: "48%",
-      marginRight: 10,
+      marginRight: 10
     }
   },
   media: {
@@ -34,30 +34,39 @@ export default ({ item, handleOnSelect }) => {
   const classes = useStyles();
   const { contextSelectedItemList } = useContext(ShoppingCartContext);
 
-  const { id, name, imgUrl, price } = item;
+  const { id, name, imgUrl } = item;
+  const isRetailSelected = contextSelectedItemList[id]
+    ? item.retailUnit === contextSelectedItemList[id]
+    : false;
+  const isWholesaleSelected = contextSelectedItemList[id]
+    ? item.wholesaleUnit === contextSelectedItemList[id]
+    : false;
   return (
     <Card className={classes.root}>
       <CardHeader title={name} />
       <CardMedia className={classes.media} image={imgUrl} title={name} />
       <CardContent>
         <ButtonGroup aria-label="outlined price button group">
-          {price.map(priceItem => {
-            const isSelected = contextSelectedItemList[id]
-              ? priceItem.unit === contextSelectedItemList[id]
-              : false;
-            return (
-              <Button
-                key={priceItem.unit}
-                variant={isSelected ? "contained" : ""}
-                color={isSelected ? "primary" : ""}
-                onClick={() =>
-                  handleOnSelect(item, priceItem.price, priceItem.unit)
-                }
-              >
-                {priceItem.price} / {priceItem.unit}
-              </Button>
-            );
-          })}
+          <Button
+            variant={isRetailSelected ? "contained" : ""}
+            color={isRetailSelected ? "primary" : ""}
+            onClick={() =>
+              handleOnSelect(item, item.retailPrice, item.retailUnit)
+            }
+          >
+            {item.retailPrice} / {item.retailUnit}
+          </Button>
+          {item.wholesaleUnit && (
+            <Button
+              variant={isWholesaleSelected ? "contained" : ""}
+              color={isWholesaleSelected ? "primary" : ""}
+              onClick={() =>
+                handleOnSelect(item, item.wholesalePrice, item.wholesaleUnit)
+              }
+            >
+              {item.wholesalePrice} / {item.wholesaleUnit}
+            </Button>
+          )}
         </ButtonGroup>
       </CardContent>
     </Card>
