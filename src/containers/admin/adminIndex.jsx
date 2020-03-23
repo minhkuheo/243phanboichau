@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Box,
@@ -45,16 +45,15 @@ export default () => {
   const [itemName, setItemName] = useState("");
   const [itemImgUrl, setItemImgUrl] = useState("");
 
-  const [retailUnitIn, setRetailUnitIn] = useState("");
-  const [retailPriceIn, setRetailPriceIn] = useState("");
-  const [wholesaleUnitIn, setWholesaleUnitIn] = useState("");
-  const [wholesalePriceIn, setWholesalePriceIn] = useState("");
+  const [costUnit, setCostUnit] = useState("");
+  const [costPrice, setCostPrice] = useState("");
   const [retailUnitOut, setRetailUnitOut] = useState("");
   const [retailPriceOut, setRetailPriceOut] = useState("");
   const [wholesaleUnitOut, setWholesaleUnitOut] = useState("");
   const [wholesalePriceOut, setWholesalePriceOut] = useState("");
 
   const handleDateChange = date => {
+    console.log("[date] ", date);
     setSelectedDate(date);
   };
   const handleCameraOnOff = () => setUseCamera(!useCamera);
@@ -63,23 +62,38 @@ export default () => {
   const handleOnSubmit = event => {
     console.log(
       "submit ",
-      retailUnitIn,
-      retailPriceIn,
-      wholesaleUnitIn,
-      wholesalePriceIn,
+      costUnit,
+      costPrice,
       retailUnitOut,
       retailPriceOut,
       wholesaleUnitOut,
       wholesalePriceOut
     );
 
+    const newItem = {
+      name: itemName,
+      imgUrl: "",
+      cost: {
+        price: costPrice,
+        unit: costUnit,
+        currency: "VND",
+        buyDate: selectedDate
+      },
+      sale: {
+        retailUnit: "vỉ",
+        retailPrice: "7000",
+        retailCurrency: "VND",
+        wholesaleUnit: "hộp",
+        wholesalePrice: "80000",
+        wholesaleCurrency: "VND"
+      }
+    };
+
     setUseCamera(false);
     setItemName("");
     setItemImgUrl("");
-    setRetailUnitIn("");
-    setRetailPriceIn("");
-    setWholesaleUnitIn("");
-    setWholesalePriceIn("");
+    setCostUnit("");
+    setCostPrice("");
     setRetailUnitOut("");
     setRetailPriceOut("");
     setWholesaleUnitOut("");
@@ -90,10 +104,8 @@ export default () => {
 
   const onChangeItemName = e => setItemName(e.target.value);
   const onChangeItemImgUrl = e => setItemImgUrl(e.target.value);
-  const onChangeRetailUnitIn = e => setRetailUnitIn(e.target.value);
-  const onChangeRetailPriceIn = e => setRetailPriceIn(e.target.value);
-  const onChangeWholesaleUnitIn = e => setWholesaleUnitIn(e.target.value);
-  const onChangeWholesalePriceIn = e => setWholesalePriceIn(e.target.value);
+  const onChangeCostUnit = e => setCostUnit(e.target.value);
+  const onChangeCostPrice = e => setCostPrice(e.target.value);
   const onChangeRetailUnitOut = e => setRetailUnitOut(e.target.value);
   const onChangeRetailPriceOut = e => setRetailPriceOut(e.target.value);
   const onChangeWholesaleUnitOut = e => setWholesaleUnitOut(e.target.value);
@@ -104,7 +116,7 @@ export default () => {
   // ********************************************************************************* //
   return (
     <div>
-      {retailUnitIn}
+      {costUnit}
       <p>Admin sẽ thực hiện:</p>
       <ul>
         <li>Thêm mặt hàng</li>
@@ -166,30 +178,18 @@ export default () => {
 
             <FormGroup>
               <TextField
-                id="donvibanle"
-                label="Đơn vị bán lẻ"
-                value={retailUnitIn}
-                onChange={onChangeRetailUnitIn}
+                id="donvi"
+                label="Đơn vị"
+                value={costUnit}
+                onChange={onChangeCostUnit}
                 required
               />
               <TextField
-                id="giabanle"
-                label="giá bán lẻ"
-                value={retailPriceIn}
-                onChange={onChangeRetailPriceIn}
+                id="gianhapvao"
+                label="giá nhập vào"
+                value={costPrice}
+                onChange={onChangeCostPrice}
                 required
-              />
-              <TextField
-                id="donvibanbuon"
-                label="Đơn vị bán buôn"
-                value={wholesaleUnitIn}
-                onChange={onChangeWholesaleUnitIn}
-              />
-              <TextField
-                id="gianhapbanbuon"
-                label="giá bán buôn"
-                value={wholesalePriceIn}
-                onChange={onChangeWholesalePriceIn}
               />
               <KeyboardDatePicker
                 margin="normal"
