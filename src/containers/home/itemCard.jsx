@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardContent,
   CardMedia,
-  ButtonGroup,
   Button
 } from "@material-ui/core";
+import { Check } from "@material-ui/icons";
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 
 const useStyles = makeStyles(theme => ({
@@ -47,28 +47,31 @@ export default ({ item, handleOnSelect }) => {
       <CardHeader title={name} />
       <CardMedia className={classes.media} image={imgUrl} title={name} />
       <CardContent>
-        <ButtonGroup aria-label="outlined price button group">
+        <Button
+          variant="contained"
+          color={isRetailSelected ? "secondary" : "default"}
+          endIcon={isRetailSelected ? <Check /> : null}
+          onClick={() =>
+            handleOnSelect(item, sale.retailPrice, sale.retailUnit)
+          }
+          fullWidth
+        >
+          {sale.retailPrice} / {sale.retailUnit}
+        </Button>
+
+        {sale.wholesaleUnit && (
           <Button
-            variant={isRetailSelected ? "contained" : ""}
-            color={isRetailSelected ? "primary" : ""}
+            variant="contained"
+            color={isWholesaleSelected ? "secondary" : "default"}
+            endIcon={isWholesaleSelected ? <Check /> : null}
             onClick={() =>
-              handleOnSelect(item, sale.retailPrice, sale.retailUnit)
+              handleOnSelect(item, sale.wholesalePrice, sale.wholesaleUnit)
             }
+            fullWidth
           >
-            {sale.retailPrice} / {sale.retailUnit}
+            {sale.wholesalePrice} / {sale.wholesaleUnit}
           </Button>
-          {sale.wholesaleUnit && (
-            <Button
-              variant={isWholesaleSelected ? "contained" : ""}
-              color={isWholesaleSelected ? "primary" : ""}
-              onClick={() =>
-                handleOnSelect(item, sale.wholesalePrice, sale.wholesaleUnit)
-              }
-            >
-              {sale.wholesalePrice} / {sale.wholesaleUnit}
-            </Button>
-          )}
-        </ButtonGroup>
+        )}
       </CardContent>
     </Card>
   );
