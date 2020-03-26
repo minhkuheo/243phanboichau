@@ -27,6 +27,9 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 140
+  },
+  spaceButton: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -48,7 +51,8 @@ export default ({ item, handleOnSelect }) => {
       <CardMedia className={classes.media} image={imgUrl} title={name} />
       <CardContent>
         <Button
-          variant="contained"
+          className={classes.spaceButton}
+          variant={isRetailSelected ? "contained" : "outlined"}
           color={isRetailSelected ? "secondary" : "default"}
           endIcon={isRetailSelected ? <Check /> : null}
           onClick={() =>
@@ -61,7 +65,7 @@ export default ({ item, handleOnSelect }) => {
 
         {sale.wholesaleUnit && (
           <Button
-            variant="contained"
+            variant={isWholesaleSelected ? "contained" : "outlined"}
             color={isWholesaleSelected ? "secondary" : "default"}
             endIcon={isWholesaleSelected ? <Check /> : null}
             onClick={() =>
