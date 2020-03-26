@@ -7,11 +7,17 @@ import DateFnsUtils from "@date-io/date-fns";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { AuthProvider } from "./contexts/authContext";
+import { PostsProvider } from "./contexts/postContext";
 
 ReactDOM.render(
   <BrowserRouter>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <App />
+      <AuthProvider>
+        <PostsProvider>
+          <App />
+        </PostsProvider>
+      </AuthProvider>
     </MuiPickersUtilsProvider>
   </BrowserRouter>,
   document.getElementById("root")

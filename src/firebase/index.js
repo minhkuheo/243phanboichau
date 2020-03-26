@@ -1,6 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import * as FIREBASE_NODES from "./collectionNames";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDaC0-_Vzy2XEUpVtB4iWE8GWFka7NVDHQ",
@@ -19,6 +20,12 @@ const db = firebase.firestore();
 export const authenticateAnonymously = () => {
   return firebase.auth().signInAnonymously();
 };
+
+// ********************************************************** //
+export const getItemLists = () => {
+  return db.collection(FIREBASE_NODES.ITEMSTORAGE).get();
+};
+// ********************************************************** //
 
 export const createGroceryList = (userName, userId) => {
   return db.collection("groceryLists").add({

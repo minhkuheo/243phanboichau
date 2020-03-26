@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box } from "@material-ui/core";
-import latinize from 'latinize';
+import latinize from "latinize";
 import { ShoppingCartContext } from "../../contexts/shoppingCartContext";
 import ItemCard from "./itemCard";
 import { ITEMS } from "../../assets/constants/mockupData";
@@ -8,11 +8,15 @@ import Loading from "../../components/loading";
 
 function filterItems(items, searchValue) {
   return items.filter(item => {
-    return latinize(item.name).toLowerCase().indexOf(latinize(searchValue).toLowerCase()) > -1;
+    return (
+      latinize(item.name)
+        .toLowerCase()
+        .indexOf(latinize(searchValue).toLowerCase()) > -1
+    );
   });
 }
 
-export default ({ searchValue }) => {
+export default ({ searchValue, items }) => {
   const {
     contextSelectedItemList,
     addToContextShoppingCartList,
@@ -23,6 +27,7 @@ export default ({ searchValue }) => {
 
   useEffect(() => {
     const fetchData = () => {
+      // setItemlist(items);
       setItemlist(ITEMS);
       setLoading(false);
     };
@@ -56,10 +61,10 @@ export default ({ searchValue }) => {
   const isItemListEmpty = !renderList[0];
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap">
-      {
-        isItemListEmpty
-        ? <h1>Không tìm thấy mặt hàng với tên tương ứng trong danh sách</h1>
-        : renderList.map(item => {
+      {isItemListEmpty ? (
+        <h1>Không tìm thấy mặt hàng với tên tương ứng trong danh sách</h1>
+      ) : (
+        renderList.map(item => {
           return (
             <ItemCard
               key={item.id}
@@ -68,7 +73,7 @@ export default ({ searchValue }) => {
             />
           );
         })
-      }
+      )}
     </Box>
   );
 };
