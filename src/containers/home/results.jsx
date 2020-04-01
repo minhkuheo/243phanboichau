@@ -27,12 +27,12 @@ export default ({ searchValue, items }) => {
 
   useEffect(() => {
     const fetchData = () => {
-      // setItemlist(items);
-      setItemlist(ITEMS);
+      setItemlist(items);
+      // setItemlist(ITEMS);
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [items]);
 
   const handleOnSelectItem = (newItem, newPrice, newUnit) => {
     // Because of contextSelectedItemList has the format:
@@ -59,6 +59,9 @@ export default ({ searchValue, items }) => {
 
   const renderList = filterItems(itemList, searchValue);
   const isItemListEmpty = !renderList[0];
+
+  console.log("[renderList] ", renderList);
+
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap">
       {isItemListEmpty ? (

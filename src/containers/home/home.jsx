@@ -15,6 +15,7 @@ const Home = () => {
       const itemsSnapshot = await getItemLists();
 
       const myItems = itemsSnapshot.docs.map(docSnapshot => docSnapshot.data());
+      console.log("[myItems] ", myItems);
       setItems(myItems);
       setLoading(false);
     };

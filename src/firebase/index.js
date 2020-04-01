@@ -23,7 +23,11 @@ export const authenticateAnonymously = () => {
 
 // ********************************************************** //
 export const getItemLists = () => {
-  return db.collection(FIREBASE_NODES.ITEMSTORAGE).get();
+  return db
+    .collection(FIREBASE_NODES.ITEMSTORAGE)
+    .doc(FIREBASE_NODES.RETAILS)
+    .collection(FIREBASE_NODES.RETAILITEMS)
+    .get();
 };
 // ********************************************************** //
 
