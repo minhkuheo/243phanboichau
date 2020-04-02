@@ -37,13 +37,13 @@ export default ({ item, handleOnSelect }) => {
   const classes = useStyles();
   const { contextSelectedItemList } = useContext(ShoppingCartContext);
 
-  const { id, name, imgUrl, sale } = item;
+  const { id, name, imgUrl } = item;
 
   const isRetailSelected = contextSelectedItemList[id]
-    ? sale.retailUnit === contextSelectedItemList[id]
+    ? item.retailUnit === contextSelectedItemList[id]
     : false;
   const isWholesaleSelected = contextSelectedItemList[id]
-    ? sale.wholesaleUnit === contextSelectedItemList[id]
+    ? item.wholesaleUnit === contextSelectedItemList[id]
     : false;
   return (
     <Card className={classes.root}>
@@ -56,24 +56,24 @@ export default ({ item, handleOnSelect }) => {
           color={isRetailSelected ? "secondary" : "default"}
           endIcon={isRetailSelected ? <Check /> : null}
           onClick={() =>
-            handleOnSelect(item, sale.retailPrice, sale.retailUnit)
+            handleOnSelect(item, item.retailPrice, item.retailUnit)
           }
           fullWidth
         >
-          {sale.retailPrice} / {sale.retailUnit}
+          {item.retailPrice} / {item.retailUnit}
         </Button>
 
-        {sale.wholesaleUnit && (
+        {item.wholesaleUnit && (
           <Button
             variant={isWholesaleSelected ? "contained" : "outlined"}
             color={isWholesaleSelected ? "secondary" : "default"}
             endIcon={isWholesaleSelected ? <Check /> : null}
             onClick={() =>
-              handleOnSelect(item, sale.wholesalePrice, sale.wholesaleUnit)
+              handleOnSelect(item, item.wholesalePrice, item.wholesaleUnit)
             }
             fullWidth
           >
-            {sale.wholesalePrice} / {sale.wholesaleUnit}
+            {item.wholesalePrice} / {item.wholesaleUnit}
           </Button>
         )}
       </CardContent>
