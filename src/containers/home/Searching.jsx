@@ -3,7 +3,8 @@ import { TextField, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    marginBottom: "30px"
+    marginBottom: "30px",
+    textAlign: "center"
   }
 });
 
@@ -14,7 +15,8 @@ export default ({ searchValue, onChangeSearchValue }) => {
     <TextField
       className={classes.root}
       id="search-items"
-      label="Nhập tên mặt hàng để tìm kiếm"
+      label="Tên mặt hàng"
+      helperText="Nhập tên mặt hàng để tìm kiếm"
       fullWidth
       margin="normal"
       value={searchValue}

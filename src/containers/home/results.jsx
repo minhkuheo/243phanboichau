@@ -60,7 +60,8 @@ export default ({ searchValue, items }) => {
   const renderList = filterItems(itemList, searchValue);
   const isItemListEmpty = !renderList[0];
 
-  console.log("[renderList] ", renderList);
+  // console.log("[renderList] ", renderList);
+  console.log("[contextSelectedItemList] ", contextSelectedItemList);
 
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap">

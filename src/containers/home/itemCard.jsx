@@ -52,7 +52,8 @@ export default ({ item, handleOnSelect }) => {
       <CardContent>
         <Button
           className={classes.spaceButton}
-          variant={isRetailSelected ? "contained" : "outlined"}
+          variant="outlined"
+          // variant={isRetailSelected ? "contained" : "outlined"}
           color={isRetailSelected ? "secondary" : "default"}
           endIcon={isRetailSelected ? <Check /> : null}
           onClick={() =>
@@ -65,7 +66,8 @@ export default ({ item, handleOnSelect }) => {
 
         {item.wholesaleUnit && (
           <Button
-            variant={isWholesaleSelected ? "contained" : "outlined"}
+            variant="outlined"
+            // variant={isWholesaleSelected ? "contained" : "outlined"}
             color={isWholesaleSelected ? "secondary" : "default"}
             endIcon={isWholesaleSelected ? <Check /> : null}
             onClick={() =>

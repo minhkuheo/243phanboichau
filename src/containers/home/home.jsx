@@ -14,7 +14,14 @@ const Home = () => {
     const fetchItems = async () => {
       const itemsSnapshot = await getItemLists();
 
-      const myItems = itemsSnapshot.docs.map(docSnapshot => docSnapshot.data());
+      const myItems = itemsSnapshot.docs.map(docSnapshot => {
+        const itemId = docSnapshot.id;
+        const itemData = docSnapshot.data();
+        return {
+          id: itemId,
+          ...itemData
+        };
+      });
       console.log("[myItems] ", myItems);
       setItems(myItems);
       setLoading(false);
